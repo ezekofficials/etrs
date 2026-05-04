@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETRS-MDAE | Ekuiti Tenaga Rakyat & Bursa Aset Digital Malaysia</title>
+    
+    <!-- Bootstrap 5.3 CSS + Icons + Google Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        /* Warna tema Biru PKR */
+        :root {
+            --pkr-blue: #1A3F6B;
+            --pkr-blue-dark: #0E2A48;
+            --pkr-blue-light: #E8EEF5;
+            --gold-accent: #D4A131;
+            --text-dark: #1e2a3e;
+            --orange-accent: #e67e22;
+        }
+        
+        .bg-energy {
+            background: linear-gradient(135deg, #1A3F6B 0%, #0E2A48 100%);
+        }
+        
+        .bg-energy-light {
+            background-color: var(--pkr-blue-light);
+        }
+        
+        .text-energy {
+            color: var(--pkr-blue);
+        }
+        
+        .btn-energy {
+            background-color: var(--pkr-blue);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 32px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-energy:hover {
+            background-color: var(--pkr-blue-dark);
+            transform: translateY(-2px);
+            color: white;
+            box-shadow: 0 10px 25px rgba(26, 63, 107, 0.3);
+        }
+        
+        .btn-outline-energy {
+            border: 2px solid var(--pkr-blue);
+            color: var(--pkr-blue);
+            border-radius: 50px;
+            padding: 10px 28px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .btn-outline-energy:hover {
+            background-color: var(--pkr-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #0E2A48 0%, #1A3F6B 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: "⚡☀️";
+            font-size: 300px;
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--pkr-blue);
+        }
+        
+        .timeline-step {
+            width: 50px;
+            height: 50px;
+            background-color: var(--pkr-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255,255,255,0.95) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            transition: color 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: var(--pkr-blue) !important;
+        }
+        
+        footer {
+            background-color: #0E2A48;
+            color: #ccc;
+        }
+        
+        .badge-token {
+            background: linear-gradient(135deg, #D4A131, #B8860B);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .badge-gold {
+            background: linear-gradient(135deg, #D4A131, #B8860B);
+            color: white;
+        }
+
+        .article-content p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #2c3e50;
+            margin-bottom: 1.2rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--pkr-blue);
+            margin-top: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--pkr-blue);
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(26,63,107,0.08) 0%, rgba(26,63,107,0.02) 100%);
+            padding: 1.5rem;
+            border-left: 4px solid var(--pkr-blue);
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
+        
+        .pull-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--pkr-blue);
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--pkr-blue-light);
+            border-radius: 20px;
+            margin: 1.5rem 0;
+        }
+
+        .kpi-card {
+            background: linear-gradient(135deg, #FFF5E6, #FFF);
+            border-radius: 16px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(212, 161, 49, 0.2);
+        }
+        
+        .kpi-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold-accent);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--pkr-blue-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--pkr-blue);
+        }
+
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="#">
+            <i class="bi bi-brightness-alt-high text-energy"></i> ETRS-MDAE
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto gap-2">
+                <li class="nav-item"><a class="nav-link" href="#konsep">Konsep</a></li>
+                <li class="nav-item"><a class="nav-link" href="#model">Model Pelaburan</a></li>
+                <li class="nav-item"><a class="nav-link" href="#blockchain">Aliran MDAE</a></li>
+                <li class="nav-item"><a class="nav-link" href="#bursa">Bursa MDAE</a></li>
+                <li class="nav-item"><a class="nav-link" href="#manfaat">Manfaat</a></li>
+            </ul>
+            <a href="#daftar" class="btn btn-energy ms-lg-3 mt-2 mt-lg-0">Daftar Minat</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <span class="badge-token d-inline-block mb-3"><i class="bi bi-lightning-charge-fill me-1"></i> Ekuiti Tenaga Rakyat Selangor (ETRS)</span>
+                <h1 class="display-4 fw-bold mb-3">Dari Ladang Solar ke Mikro-Reaktor Nuklear</h1>
+                <p class="lead mb-4">Membangunkan ekosistem saham rakyat melalui SPV MBI Selangor — melabur dalam aset tenaga fizikal, menerima dividen dalam Aset Digital MYKWH yang disandarkan 1:1 kepada tenaga & Ringgit.</p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#model" class="btn btn-light btn-energy">📊 Simulasi RM15 Bilion</a>
+                    <a href="#bursa" class="btn btn-outline-light">🏛️ Penubuhan MDAE</a>
+                </div>
+                <div class="row mt-5 g-4">
+                    <div class="col-4">
+                        <div class="stat-number text-white">3 Juta</div>
+                        <small>Penyertaan Rakyat</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-number text-white">3,750 MW</div>
+                        <small>Kapasiti Solar</small>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-number text-white">1 MYKWH</div>
+                        <small>= 1 kWh fizikal</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 text-center">
+                <img src="1.png" alt="Ekosistem ETRS" class="img-fluid rounded-4 shadow-lg" style="background: rgba(255,255,255,0.1); padding: 20px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Konsep & Batu Loncatan (Fail 1 & 2) -->
+<section id="konsep" class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold"><i class="bi bi-diagram-3 me-2 text-energy"></i> Batu Loncatan Strategik: Solar ke Nuklear</h2>
+            <p class="lead text-secondary">SMR / Mikro-reaktor nuklear masih dalam fasa kawal selia — ladang solar sebagai "Proof of Concept" membina ekosistem saham rakyat sekarang.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <i class="bi bi-sun fs-1 text-energy"></i>
+                    <h4 class="mt-3">Solar sebagai Bukti Konsep</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill text-energy me-2"></i> Membina kepercayaan rakyat terhadap model pemilikan saham tenaga.</li>
+                        <li><i class="bi bi-check-circle-fill text-energy me-2"></i> Mengukuhkan struktur tadbir urus SPV MBI Selangor.</li>
+                        <li><i class="bi bi-check-circle-fill text-energy me-2"></i> Rekod prestasi kukuh dengan TNB & Suruhanjaya Tenaga.</li>
+                        <li><i class="bi bi-check-circle-fill text-energy me-2"></i> Dana Inovasi Tenaga untuk deposit awal mikro-reaktor 2030.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <i class="bi bi-arrow-repeat fs-1 text-energy"></i>
+                    <h4 class="mt-3">Persamaan Strategik</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-brightness-alt-high me-2 text-energy"></i> <strong>Solar (Intermittent):</strong> Tenaga waktu siang.</li>
+                        <li><i class="bi bi-lightbulb me-2 text-energy"></i> <strong>Mikro-Reaktor (Base-load):</strong> Tenaga 24/7 tanpa henti.</li>
+                        <li><i class="bi bi-grid-3x3-gap-fill me-2 text-energy"></i> Infrastruktur grid sedia ada boleh dikongsi.</li>
+                        <li><i class="bi bi-bar-chart-steps me-2 text-energy"></i> PPA solar sedia rangka jelas; nuklear akan dibangunkan kemudian.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-success mt-4 text-center">
+            <i class="bi bi-people-fill me-2"></i> <strong>Ekuiti Tenaga Rakyat Selangor (ETRS)</strong> — SPV khusus milik rakyat, namun penyertaan dari seluruh Malaysia dibenarkan.
+        </div>
+    </div>
+</section>
+
+<!-- Model Pelaburan & Simulasi 3 Juta Rakyat (Fail 2) -->
+<section id="model" class="py-5 bg-energy-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">💰 Simulasi Ekonomi: 3 Juta Rakyat, RM15 Bilion</h2>
+            <p class="lead text-dark">Harga unit serendah RM1 (minimum 10 unit) — maksimum 10,000 unit untuk elak monopoli. Purata pelaburan RM5,000.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <h4><i class="bi bi-calculator-fill me-2 text-energy"></i> Skala Ladang Solar Gergasi</h4>
+                    <ul class="list-unstyled mt-3">
+                        <li><strong>Modal Terkumpul:</strong> RM15 Bilion</li>
+                        <li><strong>Kapasiti Penjanaan:</strong> 3,750 MW (hampir menyamai jumlah solar sedia ada Malaysia)</li>
+                        <li><strong>Luas Ladang:</strong> ~15,000 Ekar (tanah kerajaan negeri/MBI)</li>
+                        <li><strong>Jumlah Panel:</strong> 4.5 – 6 Juta keping</li>
+                        <li><strong>Tenaga Bulanan:</strong> 437.5 Juta kWh</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <h4><i class="bi bi-graph-up me-2 text-energy"></i> Keuntungan & Dividen Bulanan</h4>
+                    <ul class="list-unstyled mt-3">
+                        <li><strong>Pendapatan Kasar:</strong> RM109.37 Juta (jualan ke TNB @ RM0.25/kWh)</li>
+                        <li><strong>Kos Operasi (20%):</strong> RM21.87 Juta</li>
+                        <li><strong>Rizab SPV (10-20%):</strong> RM21.87 Juta (untuk naik taraf mikro-reaktor 2030)</li>
+                        <li><strong>Untung Bersih Dividen:</strong> RM87.5 Juta / bulan</li>
+                        <li><strong>Aset Digital MYKWH Dijana:</strong> 306.2 Juta unit / bulan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered bg-white rounded-3 overflow-hidden shadow-sm">
+                <thead class="bg-energy text-white">
+                    <tr>
+                        <th>Modal Pelaburan</th><th>Pegangan Unit</th><th>Estimasi Dividen Bulanan (MYKWH)</th><th>Status Penggunaan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>RM10 (Min)</td><td>10 Unit</td><td>~1.02 MYKWH</td><td>Simpanan Aset Mikro</td></tr>
+                    <tr><td>RM1,000</td><td>1,000 Unit</td><td>~102.07 MYKWH</td><td>Menampung Bil Rumah Kecil</td></tr>
+                    <tr class="table-active"><td>RM5,000 (Purata)</td><td>5,000 Unit</td><td>~510.33 MYKWH</td><td>Percuma Bil Rumah Teres (Air-cond)</td></tr>
+                    <tr><td>RM10,000 (Max Awal)</td><td>10,000 Unit</td><td>~1,020.67 MYKWH</td><td>Lebihan Tenaga (Boleh jual P2P)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="highlight mt-3">
+            <p class="mb-0"><strong>Lompatan Nuklear 2030:</strong> Apabila beralih ke mikro-reaktor, kapasiti tenaga mungkin melonjak ke 20,000 MW tanpa perlu membesarkan ladang – menjadikan nilai MYKWH rakyat berkali ganda lebih mahal.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Aliran Teknikal & Kewangan + Nod Pelombong (Fail 3) -->
+<section id="blockchain" class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">⛓️ Aliran Teknikal & Kewangan MDAE</h2>
+            <p class="lead text-secondary">Hubungan antara ETRS, TNB, Bursa MDAE & Nod Pelombong (Oracle/Validator)</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                    <i class="bi bi-building fs-1 text-energy"></i>
+                    <h5 class="mt-2">1. ETRS & TNB</h5>
+                    <p>TNB membayar hasil jualan tenaga (RM) terus ke ETRS. ETRS menolak OPEX & rizab, baki keuntungan dihantar ke Bursa MDAE.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                    <i class="bi bi-node-plus fs-1 text-energy"></i>
+                    <h5 class="mt-2">2. Nod Pelombong (Validator)</h5>
+                    <p>Mengesahkan data dari ETRS & tarif semasa. Secara automatik menjana (mint) token MYKWH berdasarkan formula: Jumlah RM ÷ Tarif kWh.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                    <i class="bi bi-wallet2 fs-1 text-energy"></i>
+                    <h5 class="mt-2">3. Agihan Pro-rata</h5>
+                    <p>Smart contract agih MYKWH ke wallet rakyat mengikut pegangan saham ETRS — telus, pantas & tiada kos transaksi.</p>
+                </div>
+            </div>
+        </div>
+        <div class="highlight mt-4">
+            <i class="bi bi-shield-check fs-4 me-2"></i> <strong>Integriti Data:</strong> Nod Pelombong memastikan tiada token palsu dijana tanpa sandaran RM. Rekod transaksi direkod dalam blok sebagai bukti audit awam.
+        </div>
+    </div>
+</section>
+
+<!-- Penubuhan Bursa Aset Digital Malaysia (Fail 4 & 5 + Penubuhan Bursa Aset Digital Malaysia.txt) -->
+<section id="bursa" class="py-5 bg-energy-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge-gold px-3 py-2 rounded-pill d-inline-block mb-3"><i class="bi bi-bank2"></i> AKTA PARLIMEN</span>
+            <h2 class="fw-bold">Penubuhan Bursa Amanah Aset Digital Malaysia (MDAE)</h2>
+            <p class="lead">Setaraf dengan Amanah Saham & Suruhanjaya Sekuriti – kawal selia bersepadu oleh SC, BNM & Kerajaan.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <h5><i class="bi bi-file-law fs-4 me-2 text-energy"></i> Akta MDAE</h5>
+                    <p>Digubal di Parlimen untuk mengiktiraf Aset Digital MYKWH sebagai aset patuh syariah yang disandarkan tenaga fizikal. Mewajibkan TNB & Suruhanjaya Tenaga menyalurkan data ke Nod Pelombong.</p>
+                    <hr>
+                    <h5><i class="bi bi-currency-exchange fs-4 me-2 text-energy"></i> Motif Dividen MYKWH</h5>
+                    <ul>
+                        <li>Kedaulatan tenaga rakyat – memiliki unit tenaga & kalis inflasi.</li>
+                        <li>Automasi blockchain – agihan dividen real-time & micro-dividen tanpa kos transaksi.</li>
+                        <li>1 MYKWH = 1 kWh → mata wang utiliti paling stabil.</li>
+                        <li>Persediaan infrastruktur nuklear 2030 tanpa ubah undang-undang.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm p-4">
+                    <h5><i class="bi bi-shield-lock-fill fs-4 me-2 text-energy"></i> 7 Syarat Ketat Aset MDAE</h5>
+                    <ol>
+                        <li>Sandaran nilai (asset-backed) – kuat & kalis inflasi.</li>
+                        <li>Patuh Syariah sepenuhnya.</li>
+                        <li>Diterbitkan oleh warganegara Malaysia.</li>
+                        <li>Had geografi: khusus untuk kegunaan domestik sahaja.</li>
+                        <li>Nod Pelombong dipantau teknikal MDAE.</li>
+                        <li>Mekanisme harga stabil – tidak dipengaruhi pasaran antarabangsa.</li>
+                        <li>Ketelusan blockchain – setiap rakyat boleh audit.</li>
+                    </ol>
+                    <div class="alert alert-primary mt-3 mb-0">
+                        <strong>Inklusiviti Ekonomi:</strong> Ruang terbuka kepada golongan kurang mampu, bukan hanya golongan elit. Setiap rakyat yang komited layak menyertai revolusi tenaga.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 p-4 bg-white rounded-4 shadow-sm">
+            <h5 class="fw-bold text-center">Ringkasan Ekosistem ETRS-MDAE</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered mt-3">
+                    <thead class="bg-energy text-white">
+                        <tr><th>Entiti</th><th>Status Undang-Undang</th><th>Peranan</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>ETRS</td><td>Anak Syarikat MBI Selangor</td><td>Pemilik Ladang Solar & Penjana Tenaga</td></tr>
+                        <tr><td>MDAE</td><td>Akta Parlimen (Setaraf ASNB)</td><td>Bursa Amanah & Penjaga Aset Digital (Custodian)</td></tr>
+                        <tr><td>Nod Pelombong</td><td>Protokol Blockchain MDAE</td><td>Mengira & menjana MYKWH secara automatik</td></tr>
+                        <tr><td>Aset Digital MYKWH</td><td>Aset Digital Berlesen</td><td>Dividen rakyat disandarkan nilai kWh</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Manfaat & Keadilan Sosial (Fail 5 & tambahan) -->
+<section id="manfaat" class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">🌱 Revolusi Tenaga Rakyat: Menang-Menang</h2>
+            <p class="lead">Mentransformasi rakyat daripada pengguna elektrik kepada pemilik infrastruktur tenaga nasional.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 text-center border-0 shadow-sm p-4">
+                    <i class="bi bi-person-walking-arrow-right fs-1 text-energy"></i>
+                    <h6 class="mt-3 fw-bold">Rakyat</h6>
+                    <small>Pemilikan saham tenaga, dividen MYKWH kalis inflasi & bayar bil automatik.</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 text-center border-0 shadow-sm p-4">
+                    <i class="bi bi-building-gear fs-1 text-energy"></i>
+                    <h6 class="mt-3 fw-bold">Kerajaan / MBI</h6>
+                    <small>Capai Net Zero, kurangkan subsidi, cadangan MDAE di parlimen sebagai badan berdaulat.</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 text-center border-0 shadow-sm p-4">
+                    <i class="bi bi-lightning-charge-fill fs-1 text-energy"></i>
+                    <h6 class="mt-3 fw-bold">TNB</h6>
+                    <small>Grid terdesentralisasi & stabil, jutaan titik penjanaan, kesediaan infrastruktur nuklear masa depan.</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card h-100 text-center border-0 shadow-sm p-4">
+                    <i class="bi bi-cash-stack fs-1 text-energy"></i>
+                    <h6 class="mt-3 fw-bold">Pasaran Modal</h6>
+                    <small>Aset Digital MYKWH sebagai instrumen baharu, P2P tenaga, kecairan melalui Bursa MDAE.</small>
+                </div>
+            </div>
+        </div>
+        <div class="pull-quote mt-5">
+            <i class="bi bi-quote fs-1 opacity-50"></i>
+            <p class="mb-0">"Menjadikan Bursa MDAE sebagai entiti yang digubal di Parlimen dan setaraf dengan Amanah Saham & SC adalah langkah strategik untuk kepercayaan mutlak rakyat. Setiap sinar matahari & teknologi nuklear akan masuk terus ke wallet rakyat."</p>
+        </div>
+    </div>
+</section>
+
+<!-- Daftar Minat / Hubungi -->
+<section id="daftar" class="py-5 bg-energy-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="fw-bold">📋 Sertai Ekosistem ETRS-MDAE</h2>
+                <p class="lead text-dark">Isi borang untuk menyatakan minat sebagai pelabur, kontraktor solar, atau pihak berkepentingan.</p>
+                <div class="card shadow-sm p-4 mt-4">
+                    <form id="interestForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control form-control-lg" name="name" placeholder="Nama penuh" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control form-control-lg" name="email" placeholder="Emel" required>
+                            </div>
+                            <div class="col-12">
+                                <input type="tel" class="form-control form-control-lg" name="phone" placeholder="No. Telefon" required>
+                            </div>
+                            <div class="col-12">
+                                <select class="form-select form-select-lg" name="category" required>
+                                    <option value="" selected disabled>Saya berminat sebagai:</option>
+                                    <option value="pemilik_rumah">Pemilik rumah (melabur dalam saham tenaga)</option>
+                                    <option value="kontraktor">Kontraktor solar / teknokrat</option>
+                                    <option value="pelabur">Pelabur / Institusi</option>
+                                    <option value="pihak_berkuasa">Pihak berkuasa / Dasar / Agensi</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-energy w-100 py-3 fs-5" type="submit">Hantar & Dapatkan Info Lanjut <i class="bi bi-send-fill ms-2"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr class="my-4">
+                    <div class="small text-secondary">
+                        <i class="bi bi-envelope-fill me-1"></i> etrs@mbi.gov.my &nbsp;|&nbsp;
+                        <i class="bi bi-whatsapp me-1"></i> +6018-ETRS-MDAE
+                    </div>
+                </div>
+                <p class="mt-3 text-muted"><i class="bi bi-info-circle"></i> Cadangan perintis Selangor – penyertaan seluruh Malaysia dialu-alukan. Bersama bina ekosistem saham rakyat & lompatan nuklear 2030.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="text-white fw-bold"><i class="bi bi-brightness-alt-high me-2"></i>ETRS-MDAE</h5>
+                <p>Ekuiti Tenaga Rakyat Selangor | Bursa Amanah Aset Digital Malaysia. Memperkasa rakyat melalui pemilikan tenaga & blockchain berdaulat.</p>
+            </div>
+            <div class="col-md-2 mb-4">
+                <h6 class="text-white">Konsep</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#konsep" class="text-decoration-none text-secondary">Solar ke Nuklear</a></li>
+                    <li><a href="#model" class="text-decoration-none text-secondary">Simulasi RM15B</a></li>
+                    <li><a href="#blockchain" class="text-decoration-none text-secondary">Nod Pelombong</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="text-white">Dasar & Seliaan</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-secondary">Akta MDAE (Cadangan)</a></li>
+                    <li><a href="#" class="text-decoration-none text-secondary">Garis Panduan SC & BNM</a></li>
+                    <li><a href="#" class="text-decoration-none text-secondary">LSS6 Suruhanjaya Tenaga</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="text-white">Ikuti Perkembangan</h6>
+                <div class="fs-4">
+                    <i class="bi bi-facebook me-3 text-secondary"></i>
+                    <i class="bi bi-linkedin me-3 text-secondary"></i>
+                    <i class="bi bi-twitter-x me-3 text-secondary"></i>
+                    <i class="bi bi-telegram text-secondary"></i>
+                </div>
+            </div>
+        </div>
+        <hr class="bg-secondary">
+        <div class="text-center small text-secondary">
+            © 2026 ETRS-MDAE | Ekuiti Tenaga Rakyat & Bursa Aset Digital Malaysia. Kandungan berdasarkan kertas konsep SMR, LSS6 & penambahbaikan strategik.
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Google Apps Script integration (simulated endpoint for demo)
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxGiZHUHXHgJug3U0nBafOJh_5gmfsx9cBz6VrizSqJt_RjsZ9pcvE01Ghf5M3GloWs/exec';
+    const form = document.querySelector('#interestForm');
+    if(form) {
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            btn.disabled = true;
+            btn.innerHTML = "Menghantar...";
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(() => {
+                    alert("Terima kasih! Minat anda telah direkodkan. Pihak ETRS akan hubungi segera.");
+                    form.reset();
+                    btn.disabled = false;
+                    btn.innerHTML = "Hantar & Dapatkan Info Lanjut <i class='bi bi-send-fill ms-2'></i>";
+                })
+                .catch(error => {
+                    console.error('Error!', error);
+                    alert("Maaf, terdapat ralat teknikal. Sila cuba sebentar lagi.");
+                    btn.disabled = false;
+                    btn.innerHTML = "Cuba Lagi";
+                });
+        });
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
